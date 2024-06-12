@@ -50,7 +50,7 @@ public static class BuildScript
     [MenuItem("Bug Test/Make Work")]
     public static void MakeWork()
     {
-        GatherShaderFeatures(false);
+        AddressableURPShaderKeywordBugfix.GatherShaderFeatures(false);
 
         AssetDatabase.SaveAssets();
     }
@@ -63,13 +63,7 @@ public static class BuildScript
         AndroidIL2CPP();
     }
 
-    static void GatherShaderFeatures(bool isDevelopmentBuild)
-    {
-        var assembly = typeof(UnityEditor.Rendering.Universal.UniversalRenderPipelineAssetEditor).Assembly;
-        var ShaderBuildPreprocessorType = assembly.GetType("UnityEditor.Rendering.Universal.ShaderBuildPreprocessor");
-        var GatherShaderFeaturesMethod = ShaderBuildPreprocessorType.GetMethod("GatherShaderFeatures", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic, null, new Type[] { typeof(bool) }, null);
-        GatherShaderFeaturesMethod.Invoke(null, new object[] { isDevelopmentBuild });
-    }
+
 
     [MenuItem("Bug Test/AndroidIL2CPP")]
     public static void AndroidIL2CPP()
